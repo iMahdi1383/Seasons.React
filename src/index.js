@@ -2,19 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 class App extends React.Component {
-    // constructor() is optional
     constructor(props) {
-        super(props); // React says we Must use super(props)
-        this.state = { lat: null }; //? define a state
-    }
+        super(props);
 
-    // React says we Must use render()
-    render() {
+        this.state = { lat: null }; //? Define a state
+
         window.navigator.geolocation.getCurrentPosition(
-            (position) => console.log(position),
+            // after get position, a callback function :
+            (position) => {
+                this.setState({ lat: position.coords.latitude }); //? Update state value, then Render Component again
+            },
             (err) => console.log(err)
         );
-        return <div> Latitude: {this.state.lat}</div>; //? show defined state
+    }
+
+    render() {
+        return <div> Latitude: {this.state.lat}</div>; //? Show state
     }
 }
 
