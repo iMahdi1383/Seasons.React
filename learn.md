@@ -1,6 +1,10 @@
+<style>
+    html body{background-color: #19181a!important}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:inherit;font-family:"open sans"}pre{background-color:#221f22!important}html body .highlight pre, html body pre{border-radius: 6px !important;border: solid 1px rgb(255 255 255 / 0.1);padding: 1em 1.5em !important}code[class*=language-] .token.atrule,code[class*=language-] .token.attr-value,code[class*=language-] .token.keyword,pre[class*=language-] .token.atrule,pre[class*=language-] .token.attr-value,pre[class*=language-] .token.keyword{color:#ab9df2}code[class*="language-"] .token.tag, pre[class*="language-"] .token.tag{color: #ff6188}code[class*="language-"] .token.attr-name, pre[class*="language-"] .token.attr-name{color: #fc9867}code[class*=language-] .token.function,pre[class*=language-] .token.function{color:#a9dc76}code[class*=language-] .token.boolean,code[class*=language-] .token.function-name,code[class*=language-] .token.number,pre[class*=language-] .token.boolean,pre[class*=language-] .token.function-name,pre[class*=language-] .token.number{color:#fc9867}html body p, html body blockquote, html body ul, html body ol, html body dl, html body pre{margin-top: 16px}html body .highlight pre, html body pre{font-size: 1em !important;}
+</style>
+
 # Modern React & Redux
 
-(End of 3-15)
+(Start of 5-4)
 
 ---
 
@@ -96,6 +100,16 @@ ReactDOM.render(<App />, document.querySelector("#root"));
     <p style={styles}> red </p>;
     ```
 
+    !!! ERROR Objects are not valid as a React child
+
+        ```jsx
+        const buttonText = { text: "Click Me" }; // Define an Object
+
+        const App = () => {
+            return <div> {buttonText} </div>; // ERROR : Objects are not valid as a React child
+            return <div> {buttonText.text} </div>; // Solved  :)
+        ```
+
 -   Functions
 
     ```jsx
@@ -106,7 +120,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
     const App = () => {
         return (
             <button class="btn">
-                Please {getButtonText()}        <!-- // Please Click On Me -->
+                Please {getButtonText()}        <!-- Please Click On Me -->
             </button>
         );
     };
@@ -125,8 +139,8 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 const buttonText = { text: "Click Me" }; //         Define an Object
 
 const App = () => {
-    return <div> {buttonText} </div>;           <!-- // ERROR : Objects are not valid as a React child -->
-    return <div> {buttonText.text} </div>;      <!-- // Solved  :) -->
+    return <div> {buttonText} </div>;           // ERROR : Objects are not valid as a React child
+    return <div> {buttonText.text} </div>;      // Solved  :)
 ```
 
 ## </details>
@@ -236,10 +250,10 @@ const App = () => {
 1.  Edit 'src/index.js' :
 
     ```html
-    // {props.children} = Text
+    <!-- {props.children} is a Text -->
     <ApprovalCard> Are you sure you want to do this? </ApprovalCard>
 
-    // {props.children} = Component
+    <!-- {props.children} is a Component -->
     <ApprovalCard>
         <CommentDetail author="Sam" />
     </ApprovalCard>
@@ -278,6 +292,111 @@ const App = () => {
         (position) => console.log(position),
         (err) => console.log(err)
     );
+    ```
+
+&nbsp;
+
+</details>
+
+<details>
+<summary>
+<h5 style="display:inline">4-7 : Create a Class Component</h5>
+</summary>
+
+-   Class VS Functional Component :
+
+    ```jsx
+    // Class Component
+    class App extends React.Component {
+        render() {
+            let a = 2 * 3; // vanilla js
+            return <div> age : {a} </div>; // jsx
+        }
+    }
+
+    // Functional Component
+    const App = () => {
+        let a = 2 * 3; // vanilla js
+        return <div> age : {a} </div>; // jsx
+    };
+    ```
+
+&nbsp;
+
+</details>
+
+<details>
+<summary>
+<h5 style="display:inline">4-7 : 'render()' & 'constructor()' methods</h5>
+</summary>
+
+```jsx
+class Car extends React.Component {
+    constructor(props) {
+        super(props);
+        let bodyColor = { doors: "black", roof: "red" };
+    }
+
+    render() {
+        return <div> Doors Color : {this.bodyColor.doors} </div>;
+    }
+}
+```
+
+&nbsp;
+
+</details>
+<details>
+<summary>
+<h5 style="display:inline">4-7 : States</h5>
+</summary>
+
+-   (Define, Update & Render, Show) a State :
+
+    ```jsx
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { lat: null }; //? define a state
+            this.setState({ lat: 30 }); //? Update state value, then Render Component again
+        }
+        render() {
+            return <div> Latitude: {this.state.lat}</div>; //? show state
+        }
+    }
+    ```
+
+    !!! WARNING DO NOT use this :
+
+        ```jsx
+        this.state.lat = position.coords.latitude; //! WARNING : its not render again! we must use 'this.setState()'
+        this.setState({ lat: position.coords.latitude }); // Solved :)
+        ```
+
+-   Example
+
+    ```jsx
+    class App extends React.Component {
+        constructor(props) {
+            super(props);
+
+            this.state = { lat: null }; //? define a state
+
+            window.navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // after get position, a callback function
+                    this.setState({ lat: position.coords.latitude }); //? update state value, then render component again
+                    //! DO NOT use this :
+                    this.state.lat = position.coords.latitude; //! ERROR : it doesnt render again! we must use 'this.setState()'
+                },
+                (err) => console.log(err)
+            );
+        }
+
+        render() {
+            return <div> Latitude: {this.state.lat}</div>; //? show defined state
+        }
+    }
     ```
 
 &nbsp;
