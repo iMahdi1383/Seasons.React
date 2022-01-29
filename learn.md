@@ -4,7 +4,7 @@
 
 ---
 
-## Use React
+### Use React
 
 <details>
 <summary>
@@ -33,7 +33,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 ---
 
-## JSX
+### JSX
 
 <details>
 <summary>
@@ -259,5 +259,27 @@ const App = () => {
         );
     };
     ```
+
+</details>
+
+---
+
+### Class Components
+
+<details>
+<summary>
+<h5 style="display:inline">4-4 : Get User Location</h5>
+</summary>
+
+-   Vanilla JavaScript (get from Browser Location settings) :
+
+    ```javascript
+    window.navigator.geolocation.getCurrentPosition(
+        (position) => console.log(position),
+        (err) => console.log(err)
+    );
+    ```
+
+&nbsp;
 
 </details>
