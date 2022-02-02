@@ -4,7 +4,7 @@
 
 # Modern React & Redux
 
-(Start of 5-4)
+(End of 5-6)
 
 ---
 
@@ -129,21 +129,6 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 &nbsp;
 
 </details>
-
-<details>
-<summary>
-<h5 style="display:inline"> 2-7 : ERROR : Objects are not valid as a React child</h5>
-</summary>
-
-```jsx
-const buttonText = { text: "Click Me" }; //         Define an Object
-
-const App = () => {
-    return <div> {buttonText} </div>;           // ERROR : Objects are not valid as a React child
-    return <div> {buttonText.text} </div>;      // Solved  :)
-```
-
-## </details>
 
 ---
 
@@ -346,9 +331,10 @@ class Car extends React.Component {
 &nbsp;
 
 </details>
+
 <details>
 <summary>
-<h5 style="display:inline">4-7 : States</h5>
+<h5 style="display:inline">5-1 : States</h5>
 </summary>
 
 -   (Define, Update & Render, Show) a State :
@@ -369,7 +355,7 @@ class Car extends React.Component {
     !!! WARNING DO NOT use this :
 
         ```jsx
-        this.state.lat = position.coords.latitude; //! WARNING : its not render again! we must use 'this.setState()'
+        this.state.lat = position.coords.latitude; //! WARNING : it doesnt reRender Component again! we must use 'this.setState()'
         this.setState({ lat: position.coords.latitude }); // Solved :)
         ```
 
@@ -379,25 +365,45 @@ class Car extends React.Component {
     class App extends React.Component {
         constructor(props) {
             super(props);
-
             this.state = { lat: null }; //? define a state
-
             window.navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    // after get position, a callback function
                     this.setState({ lat: position.coords.latitude }); //? update state value, then render component again
-                    //! DO NOT use this :
-                    this.state.lat = position.coords.latitude; //! ERROR : it doesnt render again! we must use 'this.setState()'
                 },
                 (err) => console.log(err)
             );
         }
-
         render() {
             return <div> Latitude: {this.state.lat}</div>; //? show defined state
         }
     }
     ```
+
+&nbsp;
+
+</details>
+
+<details>
+<summary>
+<h5 style="display:inline">5-6 : Multiple states</h5>
+</summary>
+
+```jsx
+//#1 define state
+this.state = { lat: null, errorMessage: "" };
+//#2 update state
+this.setState({ lat: 5 });
+this.setState({ errorMessage: 'something' });
+//#3 show state */
+render() {
+    return (
+        <div>
+            Latitude: {this.state.lat}
+            Error: {this.state.errorMessage}
+        </div>
+    );
+}
+```
 
 &nbsp;
 
