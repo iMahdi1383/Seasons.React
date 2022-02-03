@@ -2,11 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 class App extends React.Component {
-    //#1  constructor : define variables
-    constructor(props) {
-        super(props);
-        this.state = { lat: null, errorMessage: "" };
-    }
+    //// 1 constructor : define variables
+    // to write less code. instead of 'constructor()' method
+    state = { lat: null, errorMessage: "" };
 
     //#2  componentDidMount() : load data (after load page)
     componentDidMount() {
