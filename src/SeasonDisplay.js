@@ -1,4 +1,5 @@
 import React from "react";
+import "./SeasonDisplay.css";
 
 const seasonConfig = {
     spring: {
@@ -49,10 +50,10 @@ const SeasonDisplay = (props) => {
     const { text, iconName } = seasonConfig[season];
 
     return (
-        <div>
-            <i className={`icon ${iconName}`}></i>
-            <h1> {text} </h1>
-            <i className={`icon ${iconName}`}></i>
+        <div className={`season-display ${season}`}>
+            <i className={`icon-left massive icon ${iconName}`}></i>
+            <h1 className="text"> {text} </h1>
+            <i className={`icon-right massive icon ${iconName}`}></i>
         </div>
     );
 };
