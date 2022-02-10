@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
+import Loading from "./Loading";
 
 class App extends React.Component {
     //// 1 constructor : define variables
@@ -21,7 +22,7 @@ class App extends React.Component {
             return <SeasonDisplay lat={this.state.lat} />;
         if (!this.state.lat && this.state.errorMessage)
             return <div> Error: {this.state.errorMessage} </div>;
-        return <div> Loading... Please wait </div>;
+        return <Loading message="please accept the location request." />;
     }
 }
 
